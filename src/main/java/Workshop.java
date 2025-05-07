@@ -1,3 +1,7 @@
+import jdk.dynalink.linker.support.Lookup;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Workshop {
@@ -8,22 +12,38 @@ public class Workshop {
     // Método que suma dos números enteros
     public int sumarDosNumeros(int a, int b) {
         // TODO: Implementar el método para retornar la suma de dos números enteros.
+        int c=0;
+        c=a+b;
         // Ejemplo: Si a = 3 y b = 5, el resultado debería ser 8.
-        return a+b;
+        return c;
     }
 
     // Método que encuentra el mayor de tres números enteros
     public int mayorDeTresNumeros(int a, int b, int c) {
         // TODO: Implementar el método para retornar el mayor de los tres números enteros.
         // Ejemplo: Si a = 3, b = 7, y c = 5, el resultado debería ser 7.
-        return 0;
+
+        if((a>b) && (a>c)){
+            return a;
+        }
+        else if ((b>a)&&(b>c)){
+            return b;
+        }
+        else {
+            return c;
+        }
     }
 
     // Método que retorna la tabla de multiplicar de un número
     public int[] tablaMultiplicar(int numero, int limite) {
         // TODO: Implementar el método para retornar la tabla de multiplicar del número dado.
         // Ejemplo: Si numero = 2 y limite = 5, el resultado debería ser [2, 4, 6, 8, 10].
-        return new int[0];
+        int[]tabla = new int[limite];
+        for(int i=0;i<limite;i++){
+            tabla[i] = numero*(i+1);
+        }
+
+        return tabla;
     }
 
     // Método que calcula el factorial de un número entero
@@ -31,14 +51,25 @@ public class Workshop {
         // TODO: Implementar el método para calcular el factorial de un número entero.
         // Ejemplo: Si n = 5, el resultado debería ser 120.
         // Lanzar IllegalArgumentException si n es negativo.
-        return 0;
+        int c=1;
+        for (int i = 1; i <= n; i++) {
+            c = c*i;
+        }
+
+        return c;
     }
 
     // Método que verifica si un número es primo
     public boolean esPrimo(int numero) {
         // TODO: Implementar el método para verificar si un número es primo.
         // Ejemplo: Si numero = 7, el resultado debería ser true.
-        return false;
+        if(numero<=1){
+            return false;
+        }
+        for(int i=2;i*i<=numero;i++)
+            if(numero % i==0) return false;
+        return true;
+
     }
 
     // Método que genera una serie de Fibonacci
@@ -46,41 +77,85 @@ public class Workshop {
         // TODO: Implementar el método para generar la serie de Fibonacci hasta el número n.
         // Ejemplo: Si n = 5, el resultado debería ser [0, 1, 1, 2, 3].
         // Lanzar IllegalArgumentException si n es negativo.
-        return new int[0];
+        int[]tabla = new int[n];
+        int n1=1,n2=0;
+        if(n==0){
+            return new int[0];
+        }
+        else if(n==1){
+            tabla[0]=n2;
+        }
+        else{
+            tabla[0]=n2;
+            tabla[1]=n1;
+            for(int i=2;i<n;i++){
+                tabla[i] = tabla[i-1]+tabla[i-2];
+            }
+
+        }
+        return tabla;
     }
+
+
 
     // Método que suma todos los elementos de un arreglo
     public int sumaElementos(int[] arreglo) {
         // TODO: Implementar el método para sumar todos los elementos de un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser 15.
-        return 0;
+        int c=0;
+        for (int i = 0; i < arreglo.length ; i++) {
+            c = arreglo[i] + c;
+        }
+        return c;
     }
 
     // Método que calcula el promedio de los elementos de un arreglo
     public double promedioElementos(int[] arreglo) {
         // TODO: Implementar el método para calcular el promedio de los elementos de un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser 3.0.
-        return 0.0;
+        double c=0;
+        for (int i = 0; i < arreglo.length ; i++) {
+            c = arreglo[i] + c;
+        }
+        c = c / arreglo.length;
+        return c;
     }
 
     // Método que encuentra el elemento mayor en un arreglo
     public int encontrarElementoMayor(int[] arreglo) {
         // TODO: Implementar el método para encontrar el elemento mayor en un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser 5.
-        return 0;
+        int c=0;
+        for (int i = 0; i < arreglo.length ; i++) {
+            if (c < arreglo[i]) {
+                c=arreglo[i];
+            }
+        }
+        return c;
     }
 
     // Método que encuentra el elemento menor en un arreglo
     public int encontrarElementoMenor(int[] arreglo) {
         // TODO: Implementar el método para encontrar el elemento menor en un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser 1.
-        return 0;
+        int c=arreglo[0];
+        for (int i = 0; i < arreglo.length ; i++) {
+            if (c > arreglo[i]) {
+                c=arreglo[i];
+            }
+        }
+        return c;
     }
 
     // Método que busca un elemento en un arreglo
     public boolean buscarElemento(int[] arreglo, int elemento) {
         // TODO: Implementar el método para buscar un elemento en un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5] y elemento = 3, el resultado debería ser true.
+        for (int i = 0; i < arreglo.length ; i++) {
+            if (elemento == arreglo[i]) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -88,28 +163,65 @@ public class Workshop {
     public int[] invertirArreglo(int[] arreglo) {
         // TODO: Implementar el método para invertir un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 3, 4, 5], el resultado debería ser [5, 4, 3, 2, 1].
-        return new int[0];
+        for (int i = 0;i < arreglo.length/2 ; i++) {
+            int j = arreglo.length-i-1;
+            int a = arreglo[i];
+            int b = arreglo[j];
+            arreglo[i] = b;
+            arreglo[j] = a;
+        }
+        if (arreglo.length == 0){
+            return new int[0];
+        }
+        return arreglo;
     }
 
     // Método que ordena un arreglo en orden ascendente
     public int[] ordenarArreglo(int[] arreglo) {
         // TODO: Implementar el método para ordenar un arreglo en orden ascendente.
         // Ejemplo: Si arreglo = [5, 4, 3, 2, 1], el resultado debería ser [1, 2, 3, 4, 5].
-        return new int[0];
+        Arrays.sort(arreglo);
+        return arreglo;
     }
 
     // Método que elimina los duplicados de un arreglo
     public int[] eliminarDuplicados(int[] arreglo) {
         // TODO: Implementar el método para eliminar los duplicados de un arreglo.
         // Ejemplo: Si arreglo = [1, 2, 2, 3, 4, 4, 5], el resultado debería ser [1, 2, 3, 4, 5].
-        return new int[0];
+        Arrays.sort(arreglo);
+        int[]tabla = new int[arreglo.length];
+        tabla[0] = arreglo[0];
+        int c=1;
+        for (int i = 1; arreglo.length < i; i++) {
+            if (arreglo[i] != arreglo[i-1]) {
+                tabla[c]=arreglo[i];
+                c++;
+            }
+        }
+        if (arreglo.length == 0){
+            return new int[0];
+        }
+        int[]tabla2 = new int[c];
+        for (int j = 0; c > j; j++){
+            tabla2[j] = tabla[j];
+        }
+        return tabla2;
     }
 
     // Método que combina dos arreglos en uno solo
     public int[] combinarArreglos(int[] arreglo1, int[] arreglo2) {
         // TODO: Implementar el método para combinar dos arreglos en uno solo.
         // Ejemplo: Si arreglo1 = [1, 2, 3, 4, 5] y arreglo2 = [6, 7, 8], el resultado debería ser [1, 2, 3, 4, 5, 6, 7, 8].
-        return new int[0];
+        int[]tabla = new int[arreglo1.length + arreglo2.length];
+        for (int i = 0; i < arreglo1.length; i++) {
+            tabla[i] = arreglo1[i];
+        }
+        int c =0;
+        for (int i = arreglo1.length; i < (arreglo1.length + arreglo2.length); i++) {
+            tabla[i] = arreglo2[c];
+            c++;
+        }
+        return tabla;
     }
 
     // Método que rota un arreglo n posiciones
