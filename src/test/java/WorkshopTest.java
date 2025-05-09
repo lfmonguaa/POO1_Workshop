@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class WorkshopTest {
 
-    private final Workshop tester = new Workshop();
+    private final Workshop tester = new Workshop();//hola
 
     @Test
     //Test para el area del circulo
